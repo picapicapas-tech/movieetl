@@ -2,7 +2,6 @@ package org.picapicapas.movieetl.domain;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -10,17 +9,6 @@ public class UnifiedMovieExtendedTest {
 
     private static final String TITLE = "Inception";
     private static final Integer RELEASE_YEAR = 2010;
-
-    @Test
-    public void testAddAudienceMetric() {
-        UnifiedMovie movie = new UnifiedMovie(new MovieKey(TITLE, RELEASE_YEAR));
-        AudienceMetric metric = new AudienceMetric(8.5, 1000000, "AudiencePulse", 
-                java.time.LocalDateTime.now());
-
-        movie.addAudienceMetric(metric);
-
-        assertEquals(1, movie.getCriticMetricsHistory().size() == 0 ? 1 : 1);
-    }
 
     @Test
     public void testAddMultipleAudienceMetrics() {

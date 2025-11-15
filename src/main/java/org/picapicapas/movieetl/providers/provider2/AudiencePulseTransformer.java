@@ -19,9 +19,9 @@ public class AudiencePulseTransformer implements Transformer<AudiencePulseSource
             try {
                 String title = getRequiredField(rawRecord, "title");
                 String year = getRequiredField(rawRecord, "year");
-                Object audienceAverageScore = rawRecord.get("audience_average_score");
-                Object totalAudienceRatings = rawRecord.get("total_audience_ratings");
-                Object domesticBoxOfficeGross = rawRecord.get("domestic_box_office_gross");
+                String audienceAverageScore = toString(rawRecord.get("audience_average_score"));
+                String totalAudienceRatings = toString(rawRecord.get("total_audience_ratings"));
+                String domesticBoxOfficeGross = toString(rawRecord.get("domestic_box_office_gross"));
 
                 AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
                         title, year, audienceAverageScore, totalAudienceRatings, domesticBoxOfficeGross);
@@ -33,5 +33,9 @@ public class AudiencePulseTransformer implements Transformer<AudiencePulseSource
         }
 
         return records;
+    }
+
+    private String toString(Object value) {
+        return value == null ? null : value.toString();
     }
 }

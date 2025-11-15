@@ -3,12 +3,12 @@ package org.picapicapas.movieetl.providers.provider2;
 public class AudiencePulseSourceRecord {
     private final String title;
     private final String year;
-    private final Object audienceAverageScore;
-    private final Object totalAudienceRatings;
-    private final Object domesticBoxOfficeGross;
+    private final String audienceAverageScore;
+    private final String totalAudienceRatings;
+    private final String domesticBoxOfficeGross;
 
-    public AudiencePulseSourceRecord(String title, String year, Object audienceAverageScore,
-                                     Object totalAudienceRatings, Object domesticBoxOfficeGross) {
+    public AudiencePulseSourceRecord(String title, String year, String audienceAverageScore,
+                                     String totalAudienceRatings, String domesticBoxOfficeGross) {
         this.title = title;
         this.year = year;
         this.audienceAverageScore = audienceAverageScore;
@@ -24,15 +24,15 @@ public class AudiencePulseSourceRecord {
         return year;
     }
 
-    public Object getAudienceAverageScore() {
+    public String getAudienceAverageScore() {
         return audienceAverageScore;
     }
 
-    public Object getTotalAudienceRatings() {
+    public String getTotalAudienceRatings() {
         return totalAudienceRatings;
     }
 
-    public Object getDomesticBoxOfficeGross() {
+    public String getDomesticBoxOfficeGross() {
         return domesticBoxOfficeGross;
     }
 }

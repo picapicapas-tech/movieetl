@@ -1,5 +1,7 @@
 package org.picapicapas.movieetl.providers.common;
 
+import org.picapicapas.movieetl.providers.common.DataNormalizer.DataNormalizationException;
+
 public class ValidationParsers {
     private ValidationParsers() {
         // Utility class, should not be instantiated
@@ -35,6 +37,17 @@ public class ValidationParsers {
             return Integer.parseInt(value.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Cannot parse as Integer: " + value, e);
+        }
+    }
+
+    public static Integer parseReleaseYear(String yearStr) throws DataNormalizationException {
+        try {
+            if (yearStr == null || yearStr.trim().isEmpty()) {
+                return null;
+            }
+            return Integer.parseInt(yearStr);
+        } catch (NumberFormatException e) {
+            throw new DataNormalizationException("Release year must be a valid integer: " + yearStr, e);
         }
     }
 }

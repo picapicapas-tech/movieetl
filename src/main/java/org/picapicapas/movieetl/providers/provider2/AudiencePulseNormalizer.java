@@ -6,6 +6,7 @@ import org.picapicapas.movieetl.domain.DataSource;
 import org.picapicapas.movieetl.domain.MovieKey;
 import org.picapicapas.movieetl.domain.UnifiedMovie;
 import org.picapicapas.movieetl.providers.common.DataNormalizer;
+import org.picapicapas.movieetl.providers.common.ValidationParsers;
 
 import java.time.LocalDateTime;
 
@@ -39,8 +40,8 @@ public class AudiencePulseNormalizer implements DataNormalizer<AudiencePulseSour
     }
 
     private void addAudienceMetrics(UnifiedMovie movie, AudiencePulseSourceRecord record) {
-        Double averageScore = parseDouble(record.getAudienceAverageScore());
-        Integer totalRatings = parseLong(record.getTotalAudienceRatings());
+        Double averageScore = ValidationParsers.parseDouble(record.getAudienceAverageScore());
+        Integer totalRatings = ValidationParsers.parseInt(record.getTotalAudienceRatings());
 
         if (averageScore != null || totalRatings != null) {
             AudienceMetric metric = new AudienceMetric(
@@ -54,7 +55,7 @@ public class AudiencePulseNormalizer implements DataNormalizer<AudiencePulseSour
     }
 
     private void addDomesticBoxOfficeMetrics(UnifiedMovie movie, AudiencePulseSourceRecord record) {
-        Long boxOfficeGross = parseBoxOfficeValue(record.getDomesticBoxOfficeGross());
+        Long boxOfficeGross = ValidationParsers.parseLong(record.getDomesticBoxOfficeGross());
 
         if (boxOfficeGross != null && boxOfficeGross > 0) {
             BoxOfficeMetric metric = new BoxOfficeMetric(
@@ -72,87 +73,11 @@ public class AudiencePulseNormalizer implements DataNormalizer<AudiencePulseSour
             if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("Movie title is required");
             }
-            Integer year = parseReleaseYear(record.getYear());
+            Integer year = ValidationParsers.parseReleaseYear(record.getYear());
             return new MovieKey(title, year);
 
         } catch (IllegalArgumentException e) {
             throw new DataNormalizationException("Failed to create MovieKey: " + e.getMessage(), e);
-        }
-    }
-
-    private Integer parseReleaseYear(String yearStr) throws DataNormalizationException {
-        try {
-            if (yearStr == null || yearStr.trim().isEmpty()) {
-                return null;
-            }
-            return Integer.parseInt(yearStr);
-        } catch (NumberFormatException e) {
-            throw new DataNormalizationException("Release year must be a valid integer: " + yearStr, e);
-        }
-    }
-
-    private Double parseDouble(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Double) {
-            return (Double) value;
-        }
-        if (value instanceof Number) {
-            return ((Number) value).doubleValue();
-        }
-        try {
-            return Double.parseDouble(value.toString());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Integer parseLong(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Integer) {
-            return (Integer) value;
-        }
-        if (value instanceof Long) {
-            long longValue = (Long) value;
-            if (longValue > Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
-            }
-            return (int) longValue;
-        }
-        if (value instanceof Number) {
-            long longValue = ((Number) value).longValue();
-            if (longValue > Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
-            }
-            return (int) longValue;
-        }
-        try {
-            return Integer.parseInt(value.toString());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Long parseBoxOfficeValue(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Long) {
-            return (Long) value;
-        }
-        if (value instanceof Integer) {
-            return ((Integer) value).longValue();
-        }
-        if (value instanceof Number) {
-            return ((Number) value).longValue();
-        }
-        try {
-            return Long.parseLong(value.toString());
-        } catch (NumberFormatException e) {
-            return null;
         }
     }
 }

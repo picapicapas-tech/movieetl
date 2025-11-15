@@ -1,5 +1,7 @@
 package org.picapicapas.movieetl.pipeline;
 
+import org.picapicapas.movieetl.domain.AudienceMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeMetric;
 import org.picapicapas.movieetl.domain.CriticMetric;
 import org.picapicapas.movieetl.domain.DataSource;
 import org.picapicapas.movieetl.domain.MovieKey;
@@ -36,6 +38,14 @@ public class MovieMerger {
     private void mergeMetrics(UnifiedMovie targetMovie, UnifiedMovie sourceMovie) {
         for (CriticMetric metric : sourceMovie.getCriticMetricsHistory()) {
             targetMovie.addCriticMetric(metric);
+        }
+
+                for (AudienceMetric metric : sourceMovie.getAudienceMetricsHistory()) {
+            targetMovie.addAudienceMetric(metric);
+        }
+
+        for (BoxOfficeMetric metric : sourceMovie.getDomesticBoxOfficeHistory()) {
+            targetMovie.addDomesticBoxOfficeMetric(metric);
         }
 
         for (DataSource source : sourceMovie.getDataCompleteness()) {

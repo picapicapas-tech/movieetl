@@ -10,7 +10,7 @@ public class AudiencePulseSourceRecordTest {
     @Test
     public void testAudiencePulseSourceRecordCreation() {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Inception", "2010", 9.1, 1500000, 292576195L);
+                "Inception", "2010", "9.1", "1500000", "292576195");
 
         assertNotNull(record);
         assertEquals("Inception", record.getTitle());
@@ -19,9 +19,9 @@ public class AudiencePulseSourceRecordTest {
 
     @Test
     public void testAudiencePulseSourceRecordGetters() {
-        Object avgScore = 9.1;
-        Object totalRatings = 1500000;
-        Object boxOffice = 292576195L;
+        String avgScore = "9.1";
+        String totalRatings = "1500000";
+        String boxOffice = "292576195";
         
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
                 "The Dark Knight", "2008", avgScore, totalRatings, boxOffice);

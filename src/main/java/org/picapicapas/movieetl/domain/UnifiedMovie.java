@@ -30,6 +30,14 @@ public class UnifiedMovie {
         return new HashSet<>(dataCompleteness);
     }
 
+    public List<AudienceMetric> getAudienceMetricsHistory() {
+        return new ArrayList<>(audienceMetricsHistory);
+    }
+
+    public List<BoxOfficeMetric> getDomesticBoxOfficeHistory() {
+        return new ArrayList<>(domesticBoxOfficeHistory);
+    }
+
     public void addDataSource(DataSource source) {
         dataCompleteness.add(source);
     }

@@ -39,19 +39,19 @@ public class AudiencePulseTransformerTest {
     public void testTransformMultipleRecords() throws DataExtractor.DataExtractionException {
         List<Map<String, ?>> rawRecords = new ArrayList<>();
         
-        Map<String, Object> record1 = new HashMap<>();
+        Map<String, String> record1 = new HashMap<>();
         record1.put("title", "Inception");
         record1.put("year", "2010");
-        record1.put("audience_average_score", 9.1);
-        record1.put("total_audience_ratings", 1500000);
-        record1.put("domestic_box_office_gross", 292576195L);
+        record1.put("audience_average_score", "9.1");
+        record1.put("total_audience_ratings", "1500000");
+        record1.put("domestic_box_office_gross", "292576195");
         
-        Map<String, Object> record2 = new HashMap<>();
+        Map<String, String> record2 = new HashMap<>();
         record2.put("title", "The Dark Knight");
         record2.put("year", "2008");
-        record2.put("audience_average_score", 9.4);
-        record2.put("total_audience_ratings", 2200000);
-        record2.put("domestic_box_office_gross", 533345358L);
+        record2.put("audience_average_score", "9.4");
+        record2.put("total_audience_ratings", "2200000");
+        record2.put("domestic_box_office_gross", "533345358");
         
         rawRecords.add(record1);
         rawRecords.add(record2);
@@ -77,7 +77,7 @@ public class AudiencePulseTransformerTest {
     @Test
     public void testTransformMissingTitleThrowsException() {
         List<Map<String, ?>> rawRecords = new ArrayList<>();
-        Map<String, Object> record = new HashMap<>();
+        Map<String, String> record = new HashMap<>();
         record.put("year", "2010");
         rawRecords.add(record);
 
@@ -87,7 +87,7 @@ public class AudiencePulseTransformerTest {
     @Test
     public void testTransformMissingYearThrowsException() {
         List<Map<String, ?>> rawRecords = new ArrayList<>();
-        Map<String, Object> record = new HashMap<>();
+        Map<String, String> record = new HashMap<>();
         record.put("title", "Inception");
         rawRecords.add(record);
 
@@ -97,7 +97,7 @@ public class AudiencePulseTransformerTest {
     @Test
     public void testTransformWithOptionalFields() throws DataExtractor.DataExtractionException {
         List<Map<String, ?>> rawRecords = new ArrayList<>();
-        Map<String, Object> record = new HashMap<>();
+        Map<String, String> record = new HashMap<>();
         record.put("title", "Parasite");
         record.put("year", "2019");
         rawRecords.add(record);

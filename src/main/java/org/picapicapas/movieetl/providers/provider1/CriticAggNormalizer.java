@@ -57,22 +57,11 @@ public class CriticAggNormalizer implements DataNormalizer<CriticAggSourceRecord
             if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("Movie title is required");
             }
-            Integer year = parseReleaseYear(record.getReleaseYear());
+            Integer year = ValidationParsers.parseReleaseYear(record.getReleaseYear());
             return new MovieKey(title, year);
 
         } catch (IllegalArgumentException e) {
             throw new DataNormalizationException("Failed to create MovieKey: " + e.getMessage(), e);
-        }
-    }
-
-    private Integer parseReleaseYear(String yearStr) throws DataNormalizationException {
-        try {
-            if (yearStr == null || yearStr.trim().isEmpty()) {
-                return null;
-            }
-            return Integer.parseInt(yearStr);
-        } catch (NumberFormatException e) {
-            throw new DataNormalizationException("Release year must be a valid integer: " + yearStr, e);
         }
     }
 }

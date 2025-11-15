@@ -26,7 +26,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeCreateNewMovie() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Inception", "2010", 9.1, 1500000, 292576195L);
+                "Inception", "2010", "9.1", "1500000", "292576195");
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
@@ -39,7 +39,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeUpdateExistingMovie() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Inception", "2010", 9.1, 1500000, 292576195L);
+                "Inception", "2010", "9.1", "1500000", "292576195");
 
         UnifiedMovie movie = new UnifiedMovie(new MovieKey("Inception", 2010));
         UnifiedMovie result = normalizer.normalize(record, movie);
@@ -52,7 +52,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeWithAudienceMetrics() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Inception", "2010", 9.1, 1500000, 292576195L);
+                "Inception", "2010", "9.1", "1500000", "292576195");
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
@@ -63,7 +63,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeWithBoxOfficeMetrics() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "The Dark Knight", "2008", 9.4, 2200000, 533345358L);
+                "The Dark Knight", "2008", "9.4", "2200000", "533345358");
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
@@ -74,7 +74,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeWithNullAudienceScore() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Parasite", "2019", null, 800000, 53369749L);
+                "Parasite", "2019", null, "800000", "53369749");
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
@@ -85,7 +85,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeWithNullBoxOffice() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Parasite", "2019", 9.0, 800000, null);
+                "Parasite", "2019", "9.0", "800000", null);
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
@@ -96,7 +96,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeMissingTitle() {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                null, "2010", 9.1, 1500000, 292576195L);
+                null, "2010", "9.1", "1500000", "292576195");
 
         try {
             normalizer.normalize(record, null);
@@ -108,7 +108,7 @@ public class AudiencePulseNormalizerTest {
     @Test
     public void testNormalizeZeroBoxOffice() throws AudiencePulseNormalizer.DataNormalizationException {
         AudiencePulseSourceRecord record = new AudiencePulseSourceRecord(
-                "Inception", "2010", 9.1, 1500000, 0L);
+                "Inception", "2010", "9.1", "1500000", "0");
 
         UnifiedMovie result = normalizer.normalize(record, null);
 
