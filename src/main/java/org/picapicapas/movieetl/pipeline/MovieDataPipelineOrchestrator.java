@@ -10,9 +10,13 @@ import org.picapicapas.movieetl.domain.UnifiedMovie;
 import org.picapicapas.movieetl.providers.common.CsvFileReader;
 import org.picapicapas.movieetl.providers.common.DataExtractor;
 import org.picapicapas.movieetl.providers.common.DataNormalizer;
+import org.picapicapas.movieetl.providers.common.JsonFileReader;
 import org.picapicapas.movieetl.providers.provider1.CriticAggExtractor;
 import org.picapicapas.movieetl.providers.provider1.CriticAggNormalizer;
 import org.picapicapas.movieetl.providers.provider1.CriticAggTransformer;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseExtractor;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseNormalizer;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseTransformer;
 /**
  * End-to-end orchestrator for the Movie Data Pipeline.
  * Coordinates extraction, normalization, and merging of movie data from
@@ -78,6 +82,7 @@ public class MovieDataPipelineOrchestrator {
         MovieDataPipelineOrchestrator orchestrator = new MovieDataPipelineOrchestrator();
 
         processProvider1CriticAgg(orchestrator);
+        processProvider2AudiencePulse(orchestrator);
 
         displayResults(orchestrator);
     }
@@ -96,6 +101,22 @@ public class MovieDataPipelineOrchestrator {
             }
         }
     }
+
+    private static void processProvider2AudiencePulse(MovieDataPipelineOrchestrator orchestrator) {
+        File audienceFile = new File("src/test/resources/AudiencePulse/provider2.json");
+        if (audienceFile.exists()) {
+            try {
+                orchestrator.processFile(
+                        audienceFile,
+                        new AudiencePulseExtractor(new JsonFileReader(), new AudiencePulseTransformer()),
+                        new AudiencePulseNormalizer(LocalDateTime.now()),
+                        LocalDateTime.now());
+            } catch (Exception e) {
+                System.err.println("Error processing AudiencePulse: " + e.getMessage());
+            }
+        }
+    }
+
 
     private static void displayResults(MovieDataPipelineOrchestrator orchestrator) {
         Map<MovieKey, UnifiedMovie> results = orchestrator.getResults();

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.picapicapas.movieetl.domain.AudienceMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeMetric;
 import org.picapicapas.movieetl.domain.CriticMetric;
 import org.picapicapas.movieetl.domain.DataSource;
 import org.picapicapas.movieetl.domain.MovieKey;
@@ -19,6 +21,12 @@ public class ExpectedResults {
         inception.addCriticMetric(new CriticMetric(87.0, 8.1, 450, 
                                                      DataSource.CRITIC_AGG.getDisplayName(), 
                                                      testTimestamp));
+        inception.addAudienceMetric(new AudienceMetric(9.1, 1500000, 
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
+        inception.addDomesticBoxOfficeMetric(new BoxOfficeMetric(292576195L,  
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
         expected.put(inception.getMovieKey(), inception);
         
         // Movie 2: The Dark Knight (2008)
@@ -27,6 +35,13 @@ public class ExpectedResults {
         darkKnight.addCriticMetric(new CriticMetric(94.0, 8.6, 350, 
                                                       DataSource.CRITIC_AGG.getDisplayName(), 
                                                       testTimestamp));
+                                                      
+        darkKnight.addAudienceMetric(new AudienceMetric(9.4, 2200000, 
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
+        darkKnight.addDomesticBoxOfficeMetric(new BoxOfficeMetric(533345358L,  
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
         expected.put(darkKnight.getMovieKey(), darkKnight);
         
         // Movie 3: Parasite (2019)
@@ -35,6 +50,12 @@ public class ExpectedResults {
         parasite.addCriticMetric(new CriticMetric(99.0, 9.5, 475, 
                                                     DataSource.CRITIC_AGG.getDisplayName(), 
                                                     testTimestamp));
+        parasite.addAudienceMetric(new AudienceMetric(9.0, 800000, 
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
+        parasite.addDomesticBoxOfficeMetric(new BoxOfficeMetric(53369749L,  
+                                                     DataSource.AUDIENCE_PULSE.getDisplayName(), 
+                                                     testTimestamp));
         expected.put(parasite.getMovieKey(), parasite);
         
         return expected;

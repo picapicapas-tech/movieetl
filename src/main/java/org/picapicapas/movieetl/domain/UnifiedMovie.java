@@ -10,11 +10,16 @@ public class UnifiedMovie {
     private final MovieKey movieKey;
     private final Set<DataSource> dataCompleteness;
     private final List<CriticMetric> criticMetricsHistory;
+    private final List<AudienceMetric> audienceMetricsHistory;
+    private final List<BoxOfficeMetric> domesticBoxOfficeHistory;
+
 
     public UnifiedMovie(MovieKey movieKey) {
         this.movieKey = Objects.requireNonNull(movieKey, "MovieKey cannot be null");
         this.dataCompleteness = new HashSet<>();
         this.criticMetricsHistory = new ArrayList<>();
+        this.audienceMetricsHistory = new ArrayList<>();
+        this.domesticBoxOfficeHistory = new ArrayList<>();
     }
 
     public MovieKey getMovieKey() {
@@ -36,6 +41,16 @@ public class UnifiedMovie {
     public void addCriticMetric(CriticMetric metric) {
         Objects.requireNonNull(metric, "Metric cannot be null");
         criticMetricsHistory.add(metric);
+    }
+
+    public void addAudienceMetric(AudienceMetric metric) {
+        Objects.requireNonNull(metric, "Metric cannot be null");
+        audienceMetricsHistory.add(metric);
+    }
+
+    public void addDomesticBoxOfficeMetric(BoxOfficeMetric metric) {
+        Objects.requireNonNull(metric, "Metric cannot be null");
+        domesticBoxOfficeHistory.add(metric);
     }
 
     @Override
@@ -68,6 +83,18 @@ public class UnifiedMovie {
         
         sb.append("  criticMetrics: [\n");
         for (CriticMetric metric : criticMetricsHistory) {
+            sb.append("    ").append(metric).append(",\n");
+        }
+        sb.append("  ],\n");
+        
+        sb.append("  audienceMetrics: [\n");
+        for (AudienceMetric metric : audienceMetricsHistory) {
+            sb.append("    ").append(metric).append(",\n");
+        }
+        sb.append("  ],\n");
+        
+        sb.append("  domesticBoxOffice: [\n");
+        for (BoxOfficeMetric metric : domesticBoxOfficeHistory) {
             sb.append("    ").append(metric).append(",\n");
         }
 

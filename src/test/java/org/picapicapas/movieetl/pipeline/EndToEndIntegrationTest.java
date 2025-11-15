@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import org.picapicapas.movieetl.providers.common.JsonFileReader;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseExtractor;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseNormalizer;
+import org.picapicapas.movieetl.providers.provider2.AudiencePulseTransformer;
 
 /**
  * This test processes the complete sample data file (provider1.csv) through the entire
@@ -34,6 +38,7 @@ public class EndToEndIntegrationTest {
     public void testEndToEndPipelineWithSampleData() throws Exception {
         
         File criticFile = new File("src/test/resources/CriticAgg/provider1.csv");
+        File audienceFile = new File("src/test/resources/AudiencePulse/provider2.json");
         
         Map<MovieKey, UnifiedMovie> expectedResults = new ExpectedResults().buildExpectedResults(testTimestamp);
 
@@ -41,6 +46,13 @@ public class EndToEndIntegrationTest {
                 criticFile,
                 new CriticAggExtractor(new CsvFileReader(), new CriticAggTransformer()),
                 new CriticAggNormalizer(testTimestamp),
+                testTimestamp
+        );
+
+        orchestrator.processFile(
+                audienceFile,
+                new AudiencePulseExtractor(new JsonFileReader(), new AudiencePulseTransformer()),
+                new AudiencePulseNormalizer(testTimestamp),
                 testTimestamp
         );
 

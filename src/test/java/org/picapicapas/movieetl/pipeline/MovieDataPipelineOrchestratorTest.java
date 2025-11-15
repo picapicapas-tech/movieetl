@@ -13,7 +13,6 @@ import org.picapicapas.movieetl.providers.provider1.CriticAggTransformer;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 
