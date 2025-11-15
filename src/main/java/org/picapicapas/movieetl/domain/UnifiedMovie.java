@@ -1,25 +1,25 @@
 package org.picapicapas.movieetl.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 public class UnifiedMovie {
     private final MovieKey movieKey;
     private final Set<DataSource> dataCompleteness;
-    private final List<CriticMetric> criticMetricsHistory;
-    private final List<AudienceMetric> audienceMetricsHistory;
-    private final List<BoxOfficeMetric> domesticBoxOfficeHistory;
-
+    private final Map<Class<?>, List<?>> metricsHistory;
 
     public UnifiedMovie(MovieKey movieKey) {
         this.movieKey = Objects.requireNonNull(movieKey, "MovieKey cannot be null");
         this.dataCompleteness = new HashSet<>();
-        this.criticMetricsHistory = new ArrayList<>();
-        this.audienceMetricsHistory = new ArrayList<>();
-        this.domesticBoxOfficeHistory = new ArrayList<>();
+        this.metricsHistory = new HashMap<>();
+        this.metricsHistory.put(CriticMetric.class, new ArrayList<>());
+        this.metricsHistory.put(AudienceMetric.class, new ArrayList<>());
+        this.metricsHistory.put(BoxOfficeMetric.class, new ArrayList<>());
     }
 
     public MovieKey getMovieKey() {
@@ -30,35 +30,45 @@ public class UnifiedMovie {
         return new HashSet<>(dataCompleteness);
     }
 
-    public List<AudienceMetric> getAudienceMetricsHistory() {
-        return new ArrayList<>(audienceMetricsHistory);
-    }
-
-    public List<BoxOfficeMetric> getDomesticBoxOfficeHistory() {
-        return new ArrayList<>(domesticBoxOfficeHistory);
-    }
-
     public void addDataSource(DataSource source) {
         dataCompleteness.add(source);
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> List<T> getMetricsHistory(Class<T> metricType) {
+        return new ArrayList<>((List<T>) metricsHistory.getOrDefault(metricType, new ArrayList<>()));
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> void addMetric(T metric) {
+        Objects.requireNonNull(metric, "Metric cannot be null");
+        Class<?> metricClass = metric.getClass();
+        List<Object> metrics = (List<Object>) metricsHistory.computeIfAbsent(metricClass, k -> new ArrayList<>());
+        metrics.add(metric);
+    }
+
+    public List<AudienceMetric> getAudienceMetricsHistory() {
+        return getMetricsHistory(AudienceMetric.class);
+    }
+
+    public List<BoxOfficeMetric> getDomesticBoxOfficeHistory() {
+        return getMetricsHistory(BoxOfficeMetric.class);
+    }
+
     public List<CriticMetric> getCriticMetricsHistory() {
-        return new ArrayList<>(criticMetricsHistory);
+        return getMetricsHistory(CriticMetric.class);
     }
 
     public void addCriticMetric(CriticMetric metric) {
-        Objects.requireNonNull(metric, "Metric cannot be null");
-        criticMetricsHistory.add(metric);
+        addMetric(metric);
     }
 
     public void addAudienceMetric(AudienceMetric metric) {
-        Objects.requireNonNull(metric, "Metric cannot be null");
-        audienceMetricsHistory.add(metric);
+        addMetric(metric);
     }
 
     public void addDomesticBoxOfficeMetric(BoxOfficeMetric metric) {
-        Objects.requireNonNull(metric, "Metric cannot be null");
-        domesticBoxOfficeHistory.add(metric);
+        addMetric(metric);
     }
 
     @Override
@@ -90,19 +100,19 @@ public class UnifiedMovie {
         sb.append("  ]\n");
         
         sb.append("  criticMetrics: [\n");
-        for (CriticMetric metric : criticMetricsHistory) {
+        for (CriticMetric metric : getCriticMetricsHistory()) {
             sb.append("    ").append(metric).append(",\n");
         }
         sb.append("  ],\n");
         
         sb.append("  audienceMetrics: [\n");
-        for (AudienceMetric metric : audienceMetricsHistory) {
+        for (AudienceMetric metric : getAudienceMetricsHistory()) {
             sb.append("    ").append(metric).append(",\n");
         }
         sb.append("  ],\n");
         
         sb.append("  domesticBoxOffice: [\n");
-        for (BoxOfficeMetric metric : domesticBoxOfficeHistory) {
+        for (BoxOfficeMetric metric : getDomesticBoxOfficeHistory()) {
             sb.append("    ").append(metric).append(",\n");
         }
 
