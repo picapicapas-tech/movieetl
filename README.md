@@ -14,7 +14,7 @@ The pipeline produces a unified `UnifiedMovie` data structure that can be easily
 ## Project Structure
 
 ```
-src/main/java/org/picapicapas/clarity/
+src/main/java/org/picapicapas/movieetl/
 ├── domain/                 # Core data models
 │   ├── DataSource.java    # Enum tracking data provider sources
 │   ├── MovieKey.java      # Immutable movie identifier (title + year)
@@ -63,23 +63,6 @@ The pipeline follows a layered, extensible architecture:
 4. **Integration Layer** - Deduplication and data merging
 5. **Output Layer** - Unified, queryable in-memory dataset
 
-## Design Principles
-
-- **Clean Code** - Meaningful names, single responsibility, small methods
-- **Extensibility** - Generic interfaces support adding new providers without changing core logic
-- **Null Safety** - Supports partial records that update as data arrives from different sources
-- **Type Safety** - Immutable keys and proper exception handling
-- **Separation of Concerns** - Clear boundaries between extraction, transformation, and integration
-
-## Development Notes
-
-This project uses an iterative development approach with frequent commits. Each step implements a focused feature set with comprehensive tests.
-
-### Git Workflow
-- Each major step gets its own commit
-- Commit messages follow the format: "Step N: Brief Description"
-- Implementation log maintained in `IMPLEMENTATION_LOG.md`
-
 ## Future Enhancements
 
 - Provider 4 and beyond (plug-and-play with new extractors and normalizers)
@@ -88,6 +71,8 @@ This project uses an iterative development approach with frequent commits. Each 
 - REST API for data access
 - Data quality reporting and monitoring
 
-## License
+## Key Input and Output classes
 
-This project is for educational purposes.
+- The output/result will be stored in a UnifiedMovie object. The data structure is meant to store the whole set of upcoming information. Since data for the same category and movie can come from different providers (we can't even exclude the same provider sending updated data over time), all the information is available for consumers and it's up them if they want the whole history, the latest, any average or any other logic they may want to apply.
+
+- For the input, MovieDataPipelineOrchestrator has a main() method that can be run to ilustrate the results with the sample provided files.
