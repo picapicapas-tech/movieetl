@@ -38,7 +38,7 @@ public class UnifiedMovieExtendedTest {
     @Test
     public void testAddDomesticBoxOfficeMetric() {
         UnifiedMovie movie = new UnifiedMovie(new MovieKey(TITLE, RELEASE_YEAR));
-        BoxOfficeMetric metric = new BoxOfficeMetric(500000000L, "BoxOfficeMetrics",
+        BoxOfficeDomesticMetric metric = new BoxOfficeDomesticMetric(500000000L, "BoxOfficeMetrics",
                 java.time.LocalDateTime.now());
 
         movie.addDomesticBoxOfficeMetric(metric);
@@ -49,9 +49,9 @@ public class UnifiedMovieExtendedTest {
     @Test
     public void testAddMultipleDomesticBoxOfficeMetrics() {
         UnifiedMovie movie = new UnifiedMovie(new MovieKey(TITLE, RELEASE_YEAR));
-        BoxOfficeMetric metric1 = new BoxOfficeMetric(500000000L, "BoxOfficeMetrics",
+        BoxOfficeDomesticMetric metric1 = new BoxOfficeDomesticMetric(500000000L, "BoxOfficeMetrics",
                 java.time.LocalDateTime.now());
-        BoxOfficeMetric metric2 = new BoxOfficeMetric(750000000L, "BoxOfficeMetrics",
+        BoxOfficeDomesticMetric metric2 = new BoxOfficeDomesticMetric(750000000L, "BoxOfficeMetrics",
                 java.time.LocalDateTime.now());
 
         movie.addDomesticBoxOfficeMetric(metric1);
@@ -78,7 +78,8 @@ public class UnifiedMovieExtendedTest {
 
         movie.addCriticMetric(new CriticMetric(87.0, 8.1, 450, "CriticAgg", now));
         movie.addAudienceMetric(new AudienceMetric(8.5, 1000000, "AudiencePulse", now));
-        movie.addDomesticBoxOfficeMetric(new BoxOfficeMetric(500000000L, "BoxOfficeMetrics", now));
+        movie.addDomesticBoxOfficeMetric(new BoxOfficeDomesticMetric(500000000L, "BoxOfficeMetrics", now));
+        movie.addInternationalBoxOfficeMetric(new BoxOfficeInternationalMetric(750000000L, "BoxOfficeMetrics", now));
 
         movie.addDataSource(DataSource.CRITIC_AGG);
         movie.addDataSource(DataSource.AUDIENCE_PULSE);
@@ -94,7 +95,8 @@ public class UnifiedMovieExtendedTest {
 
         movie.addCriticMetric(new CriticMetric(87.0, 8.1, 450, "CriticAgg", now));
         movie.addAudienceMetric(new AudienceMetric(8.5, 1000000, "AudiencePulse", now));
-        movie.addDomesticBoxOfficeMetric(new BoxOfficeMetric(500000000L, "BoxOfficeMetrics", now));
+        movie.addDomesticBoxOfficeMetric(new BoxOfficeDomesticMetric(500000000L, "BoxOfficeMetrics", now));
+        movie.addInternationalBoxOfficeMetric(new BoxOfficeInternationalMetric(750000000L, "BoxOfficeMetrics", now));
 
         String str = movie.toString();
         assertNotNull(str);

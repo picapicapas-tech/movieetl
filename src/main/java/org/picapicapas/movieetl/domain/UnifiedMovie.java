@@ -19,7 +19,9 @@ public class UnifiedMovie {
         this.metricsHistory = new HashMap<>();
         this.metricsHistory.put(CriticMetric.class, new ArrayList<>());
         this.metricsHistory.put(AudienceMetric.class, new ArrayList<>());
-        this.metricsHistory.put(BoxOfficeMetric.class, new ArrayList<>());
+        this.metricsHistory.put(BoxOfficeDomesticMetric.class, new ArrayList<>());
+        this.metricsHistory.put(BoxOfficeInternationalMetric.class, new ArrayList<>());
+        this.metricsHistory.put(FinancialMetric.class, new ArrayList<>());
     }
 
     public MovieKey getMovieKey() {
@@ -51,12 +53,20 @@ public class UnifiedMovie {
         return getMetricsHistory(AudienceMetric.class);
     }
 
-    public List<BoxOfficeMetric> getDomesticBoxOfficeHistory() {
-        return getMetricsHistory(BoxOfficeMetric.class);
+    public List<BoxOfficeDomesticMetric> getDomesticBoxOfficeHistory() {
+        return getMetricsHistory(BoxOfficeDomesticMetric.class);
+    }
+
+    public List<BoxOfficeInternationalMetric> getInternationalBoxOfficeHistory() {
+        return getMetricsHistory(BoxOfficeInternationalMetric.class);
     }
 
     public List<CriticMetric> getCriticMetricsHistory() {
         return getMetricsHistory(CriticMetric.class);
+    }
+
+    public List<FinancialMetric> getFinancialMetricsHistory() {
+        return getMetricsHistory(FinancialMetric.class);
     }
 
     public void addCriticMetric(CriticMetric metric) {
@@ -67,7 +77,15 @@ public class UnifiedMovie {
         addMetric(metric);
     }
 
-    public void addDomesticBoxOfficeMetric(BoxOfficeMetric metric) {
+    public void addDomesticBoxOfficeMetric(BoxOfficeDomesticMetric metric) {
+        addMetric(metric);
+    }
+
+    public void addInternationalBoxOfficeMetric(BoxOfficeInternationalMetric metric) {
+        addMetric(metric);
+    }
+
+    public void addFinancialMetric(FinancialMetric metric) {
         addMetric(metric);
     }
 
@@ -112,10 +130,25 @@ public class UnifiedMovie {
         sb.append("  ],\n");
         
         sb.append("  domesticBoxOffice: [\n");
-        for (BoxOfficeMetric metric : getDomesticBoxOfficeHistory()) {
+        for (BoxOfficeDomesticMetric metric : getDomesticBoxOfficeHistory()) {
             sb.append("    ").append(metric).append(",\n");
         }
 
+        sb.append("  ],\n");
+
+        sb.append("  internationalBoxOffice: [\n");
+        for (BoxOfficeInternationalMetric metric : getInternationalBoxOfficeHistory()) {
+            sb.append("    ").append(metric).append(",\n");
+        }
+
+        sb.append("  ],\n");
+
+        sb.append("  financialMetrics: [\n");
+        for (FinancialMetric metric : getFinancialMetricsHistory()) {
+            sb.append("    ").append(metric).append(",\n");
+        }
+        sb.append("  ],\n");
+        
         sb.append("}");
         return sb.toString();
     }

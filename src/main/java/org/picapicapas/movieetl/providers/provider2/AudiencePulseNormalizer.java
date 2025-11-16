@@ -1,6 +1,7 @@
 package org.picapicapas.movieetl.providers.provider2;
 
 import org.picapicapas.movieetl.domain.AudienceMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeDomesticMetric;
 import org.picapicapas.movieetl.domain.BoxOfficeMetric;
 import org.picapicapas.movieetl.domain.DataSource;
 import org.picapicapas.movieetl.domain.MovieKey;
@@ -58,7 +59,7 @@ public class AudiencePulseNormalizer implements DataNormalizer<AudiencePulseSour
         Long boxOfficeGross = ValidationParsers.parseLong(record.getDomesticBoxOfficeGross());
 
         if (boxOfficeGross != null && boxOfficeGross > 0) {
-            BoxOfficeMetric metric = new BoxOfficeMetric(
+            BoxOfficeDomesticMetric metric = new BoxOfficeDomesticMetric(
                     boxOfficeGross,
                     DataSource.AUDIENCE_PULSE.getDisplayName(),
                     timestamp

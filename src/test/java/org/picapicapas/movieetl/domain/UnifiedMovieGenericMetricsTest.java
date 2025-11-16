@@ -82,7 +82,7 @@ public class UnifiedMovieGenericMetricsTest {
     public void testAllThreeMetricTypesTogether() {
         CriticMetric criticMetric = new CriticMetric(85.5, 8.2, 150, "CriticAgg", testTimestamp);
         AudienceMetric audienceMetric = new AudienceMetric(8.5, 1000000, "AudiencePulse", testTimestamp);
-        BoxOfficeMetric boxOfficeMetric = new BoxOfficeMetric(500000000L, "BoxOfficeMetrics", testTimestamp);
+        BoxOfficeDomesticMetric boxOfficeMetric = new BoxOfficeDomesticMetric(500000000L, "BoxOfficeMetrics", testTimestamp);
 
         unifiedMovie.addMetric(criticMetric);
         unifiedMovie.addMetric(audienceMetric);

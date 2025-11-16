@@ -20,7 +20,7 @@ public class ProviderRegistryFactoryTest {
     @Test
     public void testGetDefaultProvidersReturnsExpectedProviderCount() {
         List<Provider> providers = ProviderRegistryFactory.getDefaultProviders();
-        assertEquals("Should have 2 default providers", 2, providers.size());
+        assertEquals("Should have 3 default providers", 3, providers.size());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ProviderRegistryFactoryTest {
         LocalDateTime timestamp = LocalDateTime.of(2025, 11, 15, 10, 30, 0);
         List<Provider> providers = ProviderRegistryFactory.getDefaultProviders(timestamp);
         
-        assertEquals("Should have 2 default providers", 2, providers.size());
+        assertEquals("Should have 3 default providers", 3, providers.size());
     }
 
     @Test

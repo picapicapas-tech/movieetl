@@ -1,9 +1,12 @@
 package org.picapicapas.movieetl.pipeline;
 
 import org.picapicapas.movieetl.domain.AudienceMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeDomesticMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeInternationalMetric;
 import org.picapicapas.movieetl.domain.BoxOfficeMetric;
 import org.picapicapas.movieetl.domain.CriticMetric;
 import org.picapicapas.movieetl.domain.DataSource;
+import org.picapicapas.movieetl.domain.FinancialMetric;
 import org.picapicapas.movieetl.domain.MovieKey;
 import org.picapicapas.movieetl.domain.UnifiedMovie;
 
@@ -44,8 +47,16 @@ public class MovieMerger {
             targetMovie.addAudienceMetric(metric);
         }
 
-        for (BoxOfficeMetric metric : sourceMovie.getDomesticBoxOfficeHistory()) {
+        for (BoxOfficeDomesticMetric metric : sourceMovie.getDomesticBoxOfficeHistory()) {
             targetMovie.addDomesticBoxOfficeMetric(metric);
+        }
+
+        for (BoxOfficeInternationalMetric metric : sourceMovie.getInternationalBoxOfficeHistory()) {
+            targetMovie.addInternationalBoxOfficeMetric(metric);
+        }
+
+        for (FinancialMetric metric : sourceMovie.getFinancialMetricsHistory()) {
+            targetMovie.addFinancialMetric(metric);
         }
 
         for (DataSource source : sourceMovie.getDataCompleteness()) {

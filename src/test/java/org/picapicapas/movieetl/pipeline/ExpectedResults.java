@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.picapicapas.movieetl.domain.AudienceMetric;
+import org.picapicapas.movieetl.domain.BoxOfficeDomesticMetric;
 import org.picapicapas.movieetl.domain.BoxOfficeMetric;
 import org.picapicapas.movieetl.domain.CriticMetric;
 import org.picapicapas.movieetl.domain.DataSource;
@@ -24,7 +25,7 @@ public class ExpectedResults {
         inception.addAudienceMetric(new AudienceMetric(9.1, 1500000, 
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
-        inception.addDomesticBoxOfficeMetric(new BoxOfficeMetric(292576195L,  
+        inception.addDomesticBoxOfficeMetric(new BoxOfficeDomesticMetric(292576195L,  
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
         expected.put(inception.getMovieKey(), inception);
@@ -39,7 +40,7 @@ public class ExpectedResults {
         darkKnight.addAudienceMetric(new AudienceMetric(9.4, 2200000, 
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
-        darkKnight.addDomesticBoxOfficeMetric(new BoxOfficeMetric(533345358L,  
+        darkKnight.addDomesticBoxOfficeMetric(new BoxOfficeDomesticMetric(533345358L,  
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
         expected.put(darkKnight.getMovieKey(), darkKnight);
@@ -53,7 +54,7 @@ public class ExpectedResults {
         parasite.addAudienceMetric(new AudienceMetric(9.0, 800000, 
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
-        parasite.addDomesticBoxOfficeMetric(new BoxOfficeMetric(53369749L,  
+        parasite.addDomesticBoxOfficeMetric(new BoxOfficeDomesticMetric(53369749L,  
                                                      DataSource.AUDIENCE_PULSE.getDisplayName(), 
                                                      testTimestamp));
         expected.put(parasite.getMovieKey(), parasite);

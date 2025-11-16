@@ -1,6 +1,7 @@
 package org.picapicapas.movieetl.pipeline;
 
 import org.picapicapas.movieetl.pipeline.providers.AudiencePulseProvider;
+import org.picapicapas.movieetl.pipeline.providers.BoxOfficeMetricsProvider;
 import org.picapicapas.movieetl.pipeline.providers.CriticAggProvider;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,8 @@ public class ProviderRegistryFactory {
     public static List<Provider> getDefaultProviders(LocalDateTime timestamp) {
         return Arrays.asList(
             new CriticAggProvider(timestamp),
-            new AudiencePulseProvider(timestamp)
+            new AudiencePulseProvider(timestamp),
+            new BoxOfficeMetricsProvider(timestamp)
         );
     }
 }
