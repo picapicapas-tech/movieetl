@@ -29,23 +29,30 @@ public class AudiencePulseProviderTest {
     }
 
     @Test
-    public void testProviderReturnsCorrectDataFile() {
-        File dataFile = provider.getDataFile();
-        assertNotNull(dataFile);
+    public void testProviderReturnsCorrectDataFiles() {
+        java.util.List<File> dataFiles = provider.getDataFiles();
+        assertNotNull(dataFiles);
+        assertEquals(1, dataFiles.size());
+        
+        File dataFile = dataFiles.get(0);
         assertTrue(dataFile.getPath().contains("provider2.json"));
         assertTrue(dataFile.getPath().contains("AudiencePulse"));
     }
 
     @Test
-    public void testProviderReturnsNonNullExtractor() {
-        DataExtractor<?> extractor = provider.getExtractor();
-        assertNotNull(extractor);
+    public void testProviderReturnsNonNullExtractors() {
+        java.util.List<?> extractors = provider.getExtractors();
+        assertNotNull(extractors);
+        assertEquals(1, extractors.size());
+        assertNotNull(extractors.get(0));
     }
 
     @Test
-    public void testProviderReturnsNonNullNormalizer() {
-        DataNormalizer<?> normalizer = provider.getNormalizer();
-        assertNotNull(normalizer);
+    public void testProviderReturnsNonNullNormalizers() {
+        java.util.List<?> normalizers = provider.getNormalizers();
+        assertNotNull(normalizers);
+        assertEquals(1, normalizers.size());
+        assertNotNull(normalizers.get(0));
     }
 
     @Test
@@ -53,15 +60,15 @@ public class AudiencePulseProviderTest {
         String customPath = "custom" + File.separator + "path" + File.separator + "data.json";
         Provider customProvider = new AudiencePulseProvider(customPath, testTimestamp);
         
-        File dataFile = customProvider.getDataFile();
-        assertEquals(customPath, dataFile.getPath());
+        java.util.List<File> dataFiles = customProvider.getDataFiles();
+        assertEquals(customPath, dataFiles.get(0).getPath());
     }
 
     @Test
     public void testProviderDefaultFilePathExists() {
         Provider defaultProvider = new AudiencePulseProvider(testTimestamp);
-        File dataFile = defaultProvider.getDataFile();
+        java.util.List<File> dataFiles = defaultProvider.getDataFiles();
         
-        assertTrue(dataFile.exists());
+        assertTrue(dataFiles.get(0).exists());
     }
 }

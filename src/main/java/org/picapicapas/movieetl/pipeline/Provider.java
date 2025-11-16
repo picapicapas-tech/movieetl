@@ -5,14 +5,15 @@ import org.picapicapas.movieetl.providers.common.DataExtractor;
 import org.picapicapas.movieetl.providers.common.DataNormalizer;
 
 import java.io.File;
+import java.util.List;
 
 public interface Provider {
     
     DataSource getDataSource();
     
-    File getDataFile();
+    List<File> getDataFiles();
     
-    <T> DataExtractor<T> getExtractor();
+    <T> List<DataExtractor<T>> getExtractors();
     
-    <T> DataNormalizer<T> getNormalizer();
+    <T> List<DataNormalizer<T>> getNormalizers();
 }

@@ -1,5 +1,7 @@
 package org.picapicapas.movieetl.domain;
 
+import java.util.Objects;
+
 public class CriticMetricValue {
     private final Double scorePercentage;
     private final Double topCriticScore; 
@@ -21,5 +23,20 @@ public class CriticMetricValue {
 
     public Integer getTotalReviews() {
         return totalReviews;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CriticMetricValue that = (CriticMetricValue) o;
+        return Objects.equals(scorePercentage, that.scorePercentage) &&
+               Objects.equals(topCriticScore, that.topCriticScore) &&
+               Objects.equals(totalReviews, that.totalReviews);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(scorePercentage, topCriticScore, totalReviews);
     }
 }

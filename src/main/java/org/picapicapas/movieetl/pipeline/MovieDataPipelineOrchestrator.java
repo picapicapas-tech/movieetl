@@ -82,24 +82,40 @@ public class MovieDataPipelineOrchestrator {
         displayResults(orchestrator);
     }
 
-    private static void processProvider(MovieDataPipelineOrchestrator orchestrator, Provider provider) {
-        File dataFile = provider.getDataFile();
-        
+    private static <T> void processFile(
+            MovieDataPipelineOrchestrator orchestrator,
+            File dataFile,
+            DataExtractor<T> extractor,
+            DataNormalizer<T> normalizer,
+            String providerName) {
         if (!dataFile.exists()) {
-            System.out.println("Skipping " + provider.getDataSource().getDisplayName() + " - file not found: " + dataFile.getAbsolutePath());
+            System.out.println("Skipping " + providerName + " - file not found: " + dataFile.getAbsolutePath());
             return;
         }
         
         try {
-            orchestrator.processFile(
-                dataFile,
-                provider.getExtractor(),
-                provider.getNormalizer(),
-                LocalDateTime.now()
-            );
-            System.out.println("Successfully processed " + provider.getDataSource().getDisplayName());
+            orchestrator.processFile(dataFile, extractor, normalizer, LocalDateTime.now());
+            System.out.println("Successfully processed " + providerName);
         } catch (Exception e) {
-            System.err.println("Error processing " + provider.getDataSource().getDisplayName() + ": " + e.getMessage());
+            System.err.println("Error processing " + providerName + ": " + e.getMessage());
+        }
+    }
+
+    private static void processProvider(MovieDataPipelineOrchestrator orchestrator, Provider provider) {
+        List<File> dataFiles = provider.getDataFiles();
+        List<?> extractors = provider.getExtractors();
+        List<?> normalizers = provider.getNormalizers();
+        String providerName = provider.getDataSource().getDisplayName();
+        
+        for (int i = 0; i < dataFiles.size(); i++) {
+            File dataFile = dataFiles.get(i);
+            
+            @SuppressWarnings("unchecked")
+            DataExtractor<Object> extractor = (DataExtractor<Object>) extractors.get(i);
+            @SuppressWarnings("unchecked")
+            DataNormalizer<Object> normalizer = (DataNormalizer<Object>) normalizers.get(i);
+            
+            processFile(orchestrator, dataFile, extractor, normalizer, providerName);
         }
     }
 

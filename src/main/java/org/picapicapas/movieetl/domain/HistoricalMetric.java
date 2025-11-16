@@ -20,4 +20,18 @@ public class HistoricalMetric<T> extends Metric {
     public Class<T> getDataType() {
         return dataType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        HistoricalMetric<?> that = (HistoricalMetric<?>) o;
+        return Objects.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), data);
+    }
 }

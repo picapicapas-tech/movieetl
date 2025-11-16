@@ -79,29 +79,32 @@ public class ProviderRegistryFactoryTest {
     }
 
     @Test
-    public void testAllProvidersHaveValidDataFile() {
+    public void testAllProvidersHaveValidDataFiles() {
         List<Provider> providers = ProviderRegistryFactory.getDefaultProviders();
         
         for (Provider provider : providers) {
-            assertNotNull("Each provider should have a data file", provider.getDataFile());
+            assertNotNull("Each provider should have data files", provider.getDataFiles());
+            assertFalse("Data files list should not be empty", provider.getDataFiles().isEmpty());
         }
     }
 
     @Test
-    public void testAllProvidersHaveValidExtractor() {
+    public void testAllProvidersHaveValidExtractors() {
         List<Provider> providers = ProviderRegistryFactory.getDefaultProviders();
         
         for (Provider provider : providers) {
-            assertNotNull("Each provider should have an extractor", provider.getExtractor());
+            assertNotNull("Each provider should have extractors", provider.getExtractors());
+            assertFalse("Extractors list should not be empty", provider.getExtractors().isEmpty());
         }
     }
 
     @Test
-    public void testAllProvidersHaveValidNormalizer() {
+    public void testAllProvidersHaveValidNormalizers() {
         List<Provider> providers = ProviderRegistryFactory.getDefaultProviders();
         
         for (Provider provider : providers) {
-            assertNotNull("Each provider should have a normalizer", provider.getNormalizer());
+            assertNotNull("Each provider should have normalizers", provider.getNormalizers());
+            assertFalse("Normalizers list should not be empty", provider.getNormalizers().isEmpty());
         }
     }
 }

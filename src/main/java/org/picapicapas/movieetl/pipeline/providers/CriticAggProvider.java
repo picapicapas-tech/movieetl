@@ -11,6 +11,9 @@ import org.picapicapas.movieetl.providers.provider1.CriticAggTransformer;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class CriticAggProvider implements Provider {
     
@@ -32,24 +35,24 @@ public class CriticAggProvider implements Provider {
     }
     
     @Override
-    public File getDataFile() {
-        return dataFile;
+    public List<File> getDataFiles() {
+        return Collections.unmodifiableList(Arrays.asList(dataFile));
     }
     
     @Override
-    public <T> DataExtractor<T> getExtractor() {
+    public <T> List<DataExtractor<T>> getExtractors() {
         @SuppressWarnings("unchecked")
         DataExtractor<T> extractor = (DataExtractor<T>) new CriticAggExtractor(
             new CsvFileReader(),
             new CriticAggTransformer()
         );
-        return extractor;
+        return Collections.unmodifiableList(Arrays.asList(extractor));
     }
     
     @Override
-    public <T> DataNormalizer<T> getNormalizer() {
+    public <T> List<DataNormalizer<T>> getNormalizers() {
         @SuppressWarnings("unchecked")
         DataNormalizer<T> normalizer = (DataNormalizer<T>) new CriticAggNormalizer(timestamp);
-        return normalizer;
+        return Collections.unmodifiableList(Arrays.asList(normalizer));
     }
 }
