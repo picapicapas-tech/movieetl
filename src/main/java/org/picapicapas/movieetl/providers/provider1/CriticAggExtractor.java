@@ -1,7 +1,7 @@
 package org.picapicapas.movieetl.providers.provider1;
 
 import org.picapicapas.movieetl.providers.common.DataExtractor;
-import org.picapicapas.movieetl.providers.common.FileReaderInterface;
+import org.picapicapas.movieetl.providers.common.FileReader;
 import org.picapicapas.movieetl.providers.common.Transformer;
 
 import java.io.File;
@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CriticAggExtractor implements DataExtractor<CriticAggSourceRecord> {
-    private final FileReaderInterface<? extends Map<String, ?>> fileReader;
+    private final FileReader<? extends Map<String, ?>> fileReader;
     private final Transformer<CriticAggSourceRecord> transformer;
 
-    public CriticAggExtractor(FileReaderInterface<? extends Map<String, ?>> fileReader, 
+    public CriticAggExtractor(FileReader<? extends Map<String, ?>> fileReader, 
                               Transformer<CriticAggSourceRecord> transformer) {
         this.fileReader = fileReader;
         this.transformer = transformer;

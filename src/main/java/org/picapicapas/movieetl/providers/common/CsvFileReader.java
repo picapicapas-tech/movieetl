@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CsvFileReader extends FileReader 
-        implements FileReaderInterface<Map<String, String>> {
+public class CsvFileReader implements FileReader<Map<String, String>> {
     
     @Override
     public List<Map<String, String>> read(File file) throws IOException {

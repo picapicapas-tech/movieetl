@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class JsonFileReader extends FileReader 
-        implements FileReaderInterface<Map<String, Object>> {
+public class JsonFileReader implements FileReader<Map<String, Object>> {
     private final ObjectMapper objectMapper;
 
     public JsonFileReader() {

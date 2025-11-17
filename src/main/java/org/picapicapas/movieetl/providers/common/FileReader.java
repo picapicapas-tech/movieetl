@@ -1,10 +1,15 @@
 package org.picapicapas.movieetl.providers.common;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
-public abstract class FileReader {
+public interface FileReader<T extends Map<String, ?>> {
 
-    protected void validateFile(File file) {
+    List<T> read(File file) throws IOException;
+
+    default void validateFile(File file) {
         if (file == null) {
             throw new IllegalArgumentException("File cannot be null");
         }

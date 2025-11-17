@@ -1,7 +1,7 @@
 package org.picapicapas.movieetl.providers.provider3;
 
 import org.picapicapas.movieetl.providers.common.DataExtractor;
-import org.picapicapas.movieetl.providers.common.FileReaderInterface;
+import org.picapicapas.movieetl.providers.common.FileReader;
 import org.picapicapas.movieetl.providers.common.Transformer;
 import org.picapicapas.movieetl.providers.provider1.CriticAggSourceRecord;
 
@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public class BoxOfficeMetricsExtractor implements DataExtractor<BoxOfficeDomesticSourceRecord> {
-    private final FileReaderInterface<? extends Map<String, ?>> fileReader;
+    private final FileReader<? extends Map<String, ?>> fileReader;
     private final Transformer<BoxOfficeDomesticSourceRecord> domesticTransformer;
     private final Transformer<BoxOfficeInternationalSourceRecord> internationalTransformer;
     private final Transformer<FinancialSourceRecord> financialTransformer;
 
     public BoxOfficeMetricsExtractor(
-            FileReaderInterface<? extends Map<String, ?>> fileReader,
+            FileReader<? extends Map<String, ?>> fileReader,
             Transformer<BoxOfficeDomesticSourceRecord> domesticTransformer,
             Transformer<BoxOfficeInternationalSourceRecord> internationalTransformer,
             Transformer<FinancialSourceRecord> financialTransformer) {
