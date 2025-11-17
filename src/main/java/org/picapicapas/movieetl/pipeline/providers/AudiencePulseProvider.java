@@ -17,11 +17,18 @@ import java.util.List;
 
 public class AudiencePulseProvider implements Provider {
     
+    private static final String DEFAULT_DATA_DIR = "src/test/resources/AudiencePulse";
+    
     private final File dataFile;
     private final LocalDateTime timestamp;
     
     public AudiencePulseProvider(LocalDateTime timestamp) {
-        this("src/test/resources/AudiencePulse/provider2.json", timestamp);
+        String dataDir = System.getenv(DATA_DIR_ENV_VAR);
+        if (dataDir == null) {
+            dataDir = DEFAULT_DATA_DIR;
+        }
+        
+        this(dataDir + "/provider2.json", timestamp);
     }
     
     public AudiencePulseProvider(String filePath, LocalDateTime timestamp) {

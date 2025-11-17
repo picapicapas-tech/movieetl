@@ -17,11 +17,18 @@ import java.util.List;
 
 public class CriticAggProvider implements Provider {
     
+    private static final String DEFAULT_DATA_DIR = "src/test/resources/CriticAgg";
+    
     private final File dataFile;
     private final LocalDateTime timestamp;
     
     public CriticAggProvider(LocalDateTime timestamp) {
-        this("src/test/resources/CriticAgg/provider1.csv", timestamp);
+        String dataDir = System.getenv(DATA_DIR_ENV_VAR);
+        if (dataDir == null) {
+            dataDir = DEFAULT_DATA_DIR;
+        }
+        
+        this(dataDir + "/provider1.csv", timestamp);
     }
     
     public CriticAggProvider(String filePath, LocalDateTime timestamp) {

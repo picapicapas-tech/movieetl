@@ -24,16 +24,25 @@ import org.picapicapas.movieetl.providers.provider3.BoxOfficeMetricsExtractor;
 import org.picapicapas.movieetl.providers.provider3.BoxOfficeDomesticSourceRecord;
 
 public class BoxOfficeMetricsProvider implements Provider {
+    private static final String DEFAULT_DATA_DIR = "src/test/resources/BoxOfficeMetrics";
+    
     private final File domesticFile;
     private final File internationalFile;
     private final File financialFile;
     private final LocalDateTime timestamp;
     
     public BoxOfficeMetricsProvider(LocalDateTime timestamp) {
+        // Allows override via MOVIE_DATA_DIR environment variable for production use
+        // Defaults to test resources if not set
+        String dataDir = System.getenv(DATA_DIR_ENV_VAR);
+        if (dataDir == null) {
+            dataDir = DEFAULT_DATA_DIR;
+        }
+        
         this(
-            "src/test/resources/BoxOfficeMetrics/provider3_domestic.csv",
-            "src/test/resources/BoxOfficeMetrics/provider3_international.csv",
-            "src/test/resources/BoxOfficeMetrics/provider3_financials.csv",
+            dataDir + "/provider3_domestic.csv",
+            dataDir + "/provider3_international.csv",
+            dataDir + "/provider3_financials.csv",
             timestamp
         );
     }

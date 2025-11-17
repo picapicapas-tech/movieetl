@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface Provider {
     
+    String DATA_DIR_ENV_VAR = "MOVIE_DATA_DIR";
+    
     DataSource getDataSource();
     
     List<File> getDataFiles();
