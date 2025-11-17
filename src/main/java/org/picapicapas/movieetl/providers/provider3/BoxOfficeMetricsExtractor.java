@@ -3,7 +3,6 @@ package org.picapicapas.movieetl.providers.provider3;
 import org.picapicapas.movieetl.providers.common.DataExtractor;
 import org.picapicapas.movieetl.providers.common.FileReader;
 import org.picapicapas.movieetl.providers.common.Transformer;
-import org.picapicapas.movieetl.providers.provider1.CriticAggSourceRecord;
 
 import java.io.File;
 import java.io.IOException;
